@@ -1,5 +1,8 @@
 package main;
 
+import main.abstracts.Media;
+import main.interfaces.IPlayable;
+
 public class Audio extends Media implements IPlayable {
 
     private int lengthInSec;

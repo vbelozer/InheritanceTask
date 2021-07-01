@@ -1,5 +1,8 @@
 package main;
 
+import main.abstracts.Media;
+import main.interfaces.IPrintable;
+
 public class Image extends Media implements IPrintable {
 
     private int resizeCoefficient;

@@ -1,6 +1,7 @@
 package main;
 
-import main.Post;
+import main.abstracts.Post;
+import main.interfaces.IPrintable;
 
 public class TextPost extends Post implements IPrintable {
 

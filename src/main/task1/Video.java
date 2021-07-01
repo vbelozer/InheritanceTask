@@ -1,6 +1,7 @@
 package main;
 
-import main.Media;
+import main.abstracts.Media;
+import main.interfaces.IPlayable;
 
 public class Video extends Media implements IPlayable {
 
