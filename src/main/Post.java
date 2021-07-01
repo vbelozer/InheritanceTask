@@ -1,20 +1,21 @@
+package main;
+
 public abstract class Post {
 
     protected int maxSize;
     private String author;
     private String date;
     private String message;
-    private String type;
-    //private String type = (new String[] {"post", "repost", "comment"})[]
+    private PostTypes type;
 
-    public Post(String author, String date, String message, String type){
+    public Post(String author, String date, String message, PostTypes type) {
         this.author = author;
         this.date = date;
         this.message = message;
         this.type = type;
     }
 
-    public String getAuthor(){
+    public String getAuthor() {
         return author;
     }
 
@@ -26,11 +27,11 @@ public abstract class Post {
         return message;
     }
 
-    public String getType() {
+    public PostTypes getType() {
         return type;
     }
 
-    public void showContent(){
+    public void showContent() {
         System.out.println("Author is " + this.getAuthor());
         System.out.println("Date is " + this.getDate());
         System.out.println("Message is " + this.getMessage());
