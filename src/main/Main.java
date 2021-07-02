@@ -1,12 +1,14 @@
+package main;
+
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        final Post post1 = new TextPost("Vika", "29.01.2021", "Hi!", "Repost");
-        final Media post2 = new Image("Vika", "29.02.2021", "Text", "Comment", 4);
-        final Media post3 = new Video("Ne Vika", "29.05.2020","It is video", "Comment", true);
-        final Media post4 = new Audio("Ne Vika", "29.05.2010","It is audio", "Comment", 120);
+        final Post post1 = new TextPost("Vika", "29.01.2021", "Hi!", PostTypes.COMMENT);
+        final Media post2 = new Image("Vika", "29.02.2021", "Text", PostTypes.COMMENT, 4);
+        final Media post3 = new Video("Ne Vika", "29.05.2020","It is video", PostTypes.RECORD, true);
+        final Media post4 = new Audio("Ne Vika", "29.05.2010","It is audio", PostTypes.REPOST, 120);
 
-        for (Post post: new Post[] {post1, post2, post3}){
+        for (Post post: new Post[] {post1, post2, post3}) {
             post.showContent();
             post.getMaxRecordSize();
             System.out.println("Max record size is " + post.getMaxRecordSize()+ " Mb");
@@ -25,7 +27,7 @@ public class Main {
         ((Audio) post4).printRandomExtension();
 
         //
-        for (Media media: new Media[] {post2, post3, post4}){
+        for (Media media: new Media[] {post2, post3, post4}) {
             media.printRandomExtension();
             System.out.println();
         }
