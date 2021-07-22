@@ -1,5 +1,9 @@
 package main;
 
+import main.abstracts.Media;
+import main.abstracts.Post;
+import main.task1.*;
+
 public class Main {
     public static void main(String[] args) {
 
