@@ -5,10 +5,6 @@ public class Dish {
 
     private String pattern = "flowers";
 
-    public boolean isDirty() {
-        return dirty;
-    }
-
     public void setDirty(boolean dirty){
         this.dirty = dirty;
     }

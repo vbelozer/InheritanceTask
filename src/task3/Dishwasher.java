@@ -6,6 +6,8 @@ package task3;
 Для статуса используйте enum вместо String.*/
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Dishwasher {
 
@@ -13,13 +15,11 @@ public class Dishwasher {
 
     private final int maxCapacity; // максимальное количество мест в машинке
 
-    private int currentCapacity; // занятые места в машинке
-
-    private ArrayList<Dish> dishes = new ArrayList<>(); // набор посуды
+    private List<Dish> dishes = new ArrayList<>(); // набор посуды
 
     public Dishwasher(int capacity) {
         if (capacity <= 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IllegalArgumentException();
         }
         this.maxCapacity = capacity;
         this.status = Status.ON;
@@ -28,22 +28,8 @@ public class Dishwasher {
     /**
      * A method that gets a list of dishes
      */
-    public ArrayList<Dish> getDishes() {
+    public List<Dish> getDishes() {
         return this.dishes;
-    }
-
-    /**
-     * A method that sets a list of dishes
-     */
-    public void setDishes(ArrayList<Dish> dishes) {
-        this.dishes = dishes;
-    }
-
-    /**
-     * A method that gets current capacity of dishwasher
-     */
-    public int getCurrentCapacity() {
-        return currentCapacity;
     }
 
     /**
@@ -66,10 +52,10 @@ public class Dishwasher {
      *      throws exception if dishwasher is not in WORKING state
      */
     public void finishTheProgram() {
-        if (this.status != Status.WORKING) {
+        if (status != Status.WORKING) {
             throw new InvalidMachineState("Program can not be finished");
         }
-        this.status = Status.FINISHED;
+        status = Status.FINISHED;
         for (Dish dish : this.dishes) {
             dish.setDirty(false);
         }
@@ -81,16 +67,16 @@ public class Dishwasher {
      *      throws exception if dishwasher is already working, empty or clean dishes are not removed
      */
     public void startDishwasher() {
-        if (this.status.equals(Status.WORKING)) {
+        if (status.equals(Status.WORKING)) {
             throw new InvalidMachineState("Dishwasher is working");
         }
-        if (this.currentCapacity == 0) {
+        if (dishes.size() == 0) {
             throw new InvalidMachineState("Dishwasher is empty");
         }
-        if (this.status.equals(Status.FINISHED) && this.currentCapacity != 0) {
+        if (status.equals(Status.FINISHED) && dishes.size() != 0) {
             throw new InvalidMachineState("Clean dishes are not removed");
         }
-        this.status = Status.WORKING;
+        status = Status.WORKING;
         System.out.println("Dishwasher has started");
     }
 
@@ -100,21 +86,23 @@ public class Dishwasher {
      *      throws exception if dishwasher is not working, status is OFF or FINISHED
      */
     public void stopDishwasher() {
-        Status currentStatus = this.status;
+        Status currentStatus = status;
         if (currentStatus.equals(Status.STOPPED) || currentStatus.equals(Status.OFF) || currentStatus.equals(Status.FINISHED)
                 || currentStatus.equals(Status.ON)) {
             throw new InvalidMachineState("Dishwasher is not working");
         }
-        this.status = Status.STOPPED;
+        status = Status.STOPPED;
         System.out.println("Dishwasher was stopped");
     }
 
     /**
      * A method that allows to get the clean dishes from a dishwasher
      */
-    public void getTheDishesFromDishwasher() {
-        currentCapacity = 0;
+    public List<Dish> getTheDishesFromDishwasher() {
+        List<Dish> dishesToGot = dishes;
+        dishes = Collections.emptyList();
         System.out.println("Dishwasher is empty. Dishes were get from it.");
+        return dishesToGot;
     }
 
     /**
@@ -124,16 +112,16 @@ public class Dishwasher {
      *      throws in case dishwasher is full, clean dishes are not removed or dishwasher is working
      */
     public void putDishToDishwasher(Dish dish) {
-        if (getCurrentCapacity() == getMaxCapacity()){
+        if (dishes.size() == maxCapacity){
             throw new InvalidMachineState("Dishwasher is full");
         }
-        if (this.status.equals(Status.FINISHED) && this.currentCapacity != 0) {
+        if (status.equals(Status.FINISHED) && dishes.size() != 0) {
             throw new InvalidMachineState("Clean dishes are not removed");
         }
-        if (this.status.equals(Status.WORKING)) {
+        if (status.equals(Status.WORKING)) {
             throw new InvalidMachineState("Dishwasher is working");
         }
-        currentCapacity++;
+        dishes.add(dish);
         System.out.println("Dish with pattern " + dish.getPattern() + " was put into dishwasher");
     }
 }

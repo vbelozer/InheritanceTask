@@ -1,34 +1,26 @@
 package task3;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        ArrayList<Dish> dishes = new ArrayList<>();
-        dishes.add(new Dish());
-        dishes.add(new Dish());
-
-        checkValidWorkflow(dishes);
+        checkValidWorkflow();
         //checkInvalidCapacity();
     }
 
-    public static void checkValidWorkflow(ArrayList<Dish> dishes) {
+    public static void checkValidWorkflow() {
         Dishwasher myDishWasher = new Dishwasher(10);
 
         System.out.println("Dishwasher status is " + myDishWasher.getStatus());
 
-        myDishWasher.setDishes(dishes);
-
-        for (Dish dish : dishes) {
-            try {
-                myDishWasher.putDishToDishwasher(dish);
-            } catch (InvalidMachineState e) {
+        try {
+            myDishWasher.putDishToDishwasher(new Dish());
+        } catch (InvalidMachineState e) {
                 System.out.println("Can not put a dish to dishwasher");
             }
-        }
 
-        System.out.println("List of dishes before: " + dishes.toString());
+        System.out.println("List of dishes before: " + myDishWasher.getDishes().toString());
 
         //start dishwasher
         try {
@@ -57,10 +49,10 @@ public class Main {
 
         // get dishes
         System.out.println("Get dishes");
-        myDishWasher.getTheDishesFromDishwasher();
+        List<Dish> dishesFromDishwasher = myDishWasher.getTheDishesFromDishwasher();
         System.out.println("Dishwasher status is " + myDishWasher.getStatus());
 
-        System.out.println("List of dishes after: " + dishes.toString());
+        System.out.println("List of dishes after: " + dishesFromDishwasher.toString());
     }
 
     public static void checkInvalidCapacity() {
